@@ -7,13 +7,26 @@ import axios from 'axios'
 function TrendingMovies() {
 
   const [movies, setMovies] = useState([]);
+  const [pageNo, setPageNo] = useState(1);
+
+  const handlePrev = function () {
+    if (pageNo > 1) {
+      setPageNo(pageNo - 1);
+    }
+  };
+
+  const handleNext = function () {
+    setPageNo(pageNo + 1);
+  };
+
+  console.log(pageNo);
 
   useEffect(()=> {
-    axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=b379b6c371be86da8a049d0a8fa2e7eb')
+    axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=b379b6c371be86da8a049d0a8fa2e7eb&page=${pageNo}`)
     .then(function(response) {
       setMovies(response.data.results);
     })
-  },[])
+  },[pageNo]) // it will make sure to execute callback in mounting as well as updation of pageNo state
 
   // console.log(movies);
 
@@ -31,7 +44,9 @@ function TrendingMovies() {
             })
           }
         </div>
-        <Pagination/>
+        <Pagination pageNo={pageNo}
+                    handlePrev={handlePrev}
+                    handleNext={handleNext}/>
     </>
   )
 }
