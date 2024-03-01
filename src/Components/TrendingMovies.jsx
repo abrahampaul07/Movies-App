@@ -12,7 +12,8 @@ function TrendingMovies() {
   const handleAddToWatchList = (id) => {
     const newWatchList = [...watchList];
     newWatchList.push(id);
-    console.log(newWatchList);
+    // console.log(newWatchList);
+    localStorage.setItem('watchList',JSON.stringify(newWatchList));
     setWatchList(newWatchList);
   };
 
@@ -34,6 +35,11 @@ function TrendingMovies() {
   };
 
   // console.log(pageNo);
+
+  useEffect(() => {
+    let watchListFromLocalStorage = JSON.parse(localStorage.getItem('watchList'));
+    setWatchList(watchListFromLocalStorage);
+  })
 
   useEffect(() => {
     axios
