@@ -15,9 +15,9 @@ function Banner() {
         // handle success
         // console.log(response);
         let movies = response.data.results;
-        console.log(movies);
+        // console.log(movies);
         let randomMovie = movies[Math.floor(Math.random() * 20)];
-        console.log(randomMovie);
+        // console.log(randomMovie);
         setMovieObj(randomMovie);
       });
   }, []);
