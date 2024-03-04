@@ -21,6 +21,7 @@ function TrendingMovies() {
     const newWatchList = watchList.filter((movieId)=> {
       return id!==movieId;
     })
+    localStorage.setItem('watchList',JSON.stringify(newWatchList));
     setWatchList(newWatchList);
   };
 
@@ -38,8 +39,11 @@ function TrendingMovies() {
 
   useEffect(() => {
     let watchListFromLocalStorage = JSON.parse(localStorage.getItem('watchList'));
+    if (watchListFromLocalStorage === null) {
+      watchListFromLocalStorage = [];
+    }
     setWatchList(watchListFromLocalStorage);
-  })
+  },[]) // it will work only on mounting phase
 
   useEffect(() => {
     axios
