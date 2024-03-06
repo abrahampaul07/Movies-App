@@ -46,7 +46,7 @@ function App() {
   },[]) // it will work only on mounting phase
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <NavBar />
       <Routes>
         <Route
@@ -75,7 +75,7 @@ function App() {
           }
         ></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
