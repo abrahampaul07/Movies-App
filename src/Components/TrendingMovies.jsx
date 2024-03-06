@@ -4,29 +4,13 @@ import MovieCard from "./MovieCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function TrendingMovies() {
+function TrendingMovies({watchList, setWatchList, handleAddToWatchList, handleRemoveFromWatchList}) {
   const [movies, setMovies] = useState([]);
   const [pageNo, setPageNo] = useState(1);
-  const [watchList, setWatchList] = useState([]);
-
-  const handleAddToWatchList = (id) => {
-    const newWatchList = [...watchList];
-    newWatchList.push(id);
-    // console.log(newWatchList);
-    localStorage.setItem('watchList',JSON.stringify(newWatchList));
-    setWatchList(newWatchList);
-  };
-
-  const handleRemoveFromWatchList = (id) => {
-    const newWatchList = watchList.filter((movieId)=> {
-      return id!==movieId;
-    })
-    localStorage.setItem('watchList',JSON.stringify(newWatchList));
-    setWatchList(newWatchList);
-  };
+  
 
   const handlePrev = function () {
-    if (pageNo > 1) {
+    if (pageNo > 1) { 
       setPageNo(pageNo - 1);
     }
   };
@@ -36,14 +20,6 @@ function TrendingMovies() {
   };
 
   // console.log(pageNo);
-
-  useEffect(() => {
-    let watchListFromLocalStorage = JSON.parse(localStorage.getItem('watchList'));
-    if (watchListFromLocalStorage === null) {
-      watchListFromLocalStorage = [];
-    }
-    setWatchList(watchListFromLocalStorage);
-  },[]) // it will work only on mounting phase
 
   useEffect(() => {
     axios
@@ -69,7 +45,7 @@ function TrendingMovies() {
           return (
             <MovieCard
               key={moviesObj.id}
-              id={moviesObj.id}
+              movieObj={moviesObj}
               title={moviesObj.title}
               poster_path={moviesObj.poster_path}
               watchList={watchList}
