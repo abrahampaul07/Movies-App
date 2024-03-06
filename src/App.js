@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import WatchList from "./Components/WatchList";
 import "./App.css";
 import Home from "./Components/Home";
