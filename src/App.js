@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WatchList from "./Components/WatchList";
 import "./App.css";
 import Home from "./Components/Home";
@@ -46,7 +46,7 @@ function App() {
   },[]) // it will work only on mounting phase
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <NavBar />
       <Routes>
         <Route
@@ -75,7 +75,7 @@ function App() {
           }
         ></Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
