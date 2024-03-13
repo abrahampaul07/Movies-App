@@ -23,6 +23,16 @@ function MovieCard({
   const handleCardClick = () => {
     onOpenModal(movieObj);
   }
+
+  const handleAddToWatchListClick = (event) => {
+    event.stopPropagation(); // Stops the event from propagating
+    handleAddToWatchList(movieObj);
+  }
+
+  const handleRemoveFromWatchListClick = (event) => {
+    event.stopPropagation(); // Stops the event from propagating
+    handleRemoveFromWatchList(movieObj);
+  }
   
   return (
     <>
@@ -34,14 +44,14 @@ function MovieCard({
     >
       {isContain(movieObj) ? (
         <div
-          onClick={() => handleRemoveFromWatchList(movieObj)}
+          onClick={handleRemoveFromWatchListClick}
           className="text-xl m-2 rounded-lg py-1 bg-slate-950/50 cursor-pointer"
         >
           &#10060;  
         </div>
       ) : (
         <div
-          onClick={() => handleAddToWatchList(movieObj)}
+          onClick={handleAddToWatchListClick}
           className="text-xl m-2 rounded-lg py-1 bg-slate-950/50 cursor-pointer"
         >
           &#128525;
