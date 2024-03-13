@@ -4,10 +4,22 @@ import MovieCard from "./MovieCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { MovieContext } from "./MovieContext";
+import MovieModal from "./MovieModal";
 
 function TrendingMovies() {
   const { pageNo } = useContext(MovieContext);
   const [movies, setMovies] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const handleOpenModal = (movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     axios
@@ -36,11 +48,14 @@ function TrendingMovies() {
               movieObj={moviesObj}
               title={moviesObj.title}
               poster_path={moviesObj.poster_path}
+              onOpenModal={handleOpenModal}
+              isModalOpen={isModalOpen}
             />
           );
         })}
       </div>
       <Pagination />
+      <MovieModal isOpen={isModalOpen} onClose={handleCloseModal} movie={selectedMovie} />
     </>
   );
 }

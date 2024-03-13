@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MovieContext } from "./MovieContext";
 
 function MovieCard({
   movieObj,
   title,
-  poster_path
+  poster_path, 
+  onOpenModal,  
+  isModalOpen
 }) {
 
   const {watchList, handleAddToWatchList, handleRemoveFromWatchList} = useContext(MovieContext);
@@ -18,8 +20,13 @@ function MovieCard({
     return false;
   }
 
+  const handleCardClick = () => {
+    onOpenModal(movieObj);
+  }
+  
   return (
-    <div
+    <>
+    <div onClick={handleCardClick}
       className="flex flex-col justify-between hover:scale-[0.9] duration-300 justify-center items-end h-64 w-40 md:w-1/2 lg:w-1/4 xl:w-1/6 rounded-lg overflow-hidden bg-cover bg-no-repeat"
       style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`,
@@ -45,6 +52,7 @@ function MovieCard({
         {title}
       </div>
     </div>
+</>
   );
 }
 
