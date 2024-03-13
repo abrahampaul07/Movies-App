@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
+import { MovieContext } from "./MovieContext";
 
-function WatchList({ watchList, setWatchList, handleRemoveFromWatchList }) {
+function WatchList() {
+
+  const { watchList, setWatchList, handleRemoveFromWatchList } = useContext(MovieContext);
+
   const GENRE_NAME = {
     28: "Action",
     12: "Adventure",
