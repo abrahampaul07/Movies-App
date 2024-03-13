@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MovieContext } from "./MovieContext";
 
-function Pagination({pageNo, handlePrev, handleNext}) {
+function Pagination() {
+
+  const {pageNo, handleNext, handlePrev} = useContext(MovieContext);
 
   return (
     <>
