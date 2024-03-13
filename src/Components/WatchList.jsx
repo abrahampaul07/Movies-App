@@ -28,6 +28,7 @@ function WatchList() {
     37: "Western",
   };
   const [genreList, setGenreList] = useState(["All Genre"]);
+  const [selectedGenre, setSelectedGenre] = useState("All Genre");  
   const [search, setSearch] = useState("");
 
   function handleIncrease() {
@@ -48,6 +49,10 @@ function WatchList() {
     console.log(e.target.value);
     setSearch(e.target.value);
   }
+  
+  function handleFilterByGenre(genre) {
+    setSelectedGenre(genre);
+  }
 
   useEffect(()=>{
     let temp = watchList.map((movieObj)=>GENRE_NAME[movieObj.genre_ids[0]])
@@ -59,10 +64,10 @@ function WatchList() {
     <>
       <div className=" flex gap-3 flex-wrap justify-center">
             {genreList.map((genre)=>{
-              return <div
-              className="h-[3rem] w-[9rem] bg-blue-400
-                rounded-xl text-white flex justify-center items-center 
-                font-bold "
+              return <div key={genre} onClick={()=>handleFilterByGenre(genre)}
+              className={`h-[3rem] w-[9rem] bg-blue-400 rounded-xl text-white flex justify-center items-center font-bold ${
+                selectedGenre === genre ? "bg-blue-600" : ""
+              }`}
             >
               {genre}
             </div>
@@ -100,9 +105,13 @@ function WatchList() {
             </tr>
           </thead>
           <tbody>
-            {watchList.filter((movieObj)=>{
-              return movieObj.title.toLowerCase().includes(search.toLocaleLowerCase());
-            })
+          {watchList
+              .filter(
+                (movieObj) =>
+                  (selectedGenre === "All Genre" ||
+                    GENRE_NAME[movieObj.genre_ids[0]] === selectedGenre) &&
+                  movieObj.title.toLowerCase().includes(search.toLowerCase())
+              )
               .map((movieObj) => {
                 return (
                   <tr className=" border-b-2">
